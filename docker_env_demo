@@ -1,0 +1,36 @@
+# Opsgenie
+OPS_API_KEY=11111-111-11111
+OPS_ENDPOINT_HOST=xxx.yyy.zzz
+OPS_HEARTBEAT_NAME=heartbeat_name
+
+# RPC
+RPC_USER=rpc_username
+RPC_PASSWORD=rpc_password
+RPC_ADDR=https://192.168.0.230:19109,https://192.168.0.231:19109,https://192.168.0.232:19109
+
+# ZMQ
+
+# pool_main_db
+MYSQL_MAIN_HOST=127.0.0.1
+MYSQL_MAIN_PORT=3306
+MYSQL_MAIN_USER=write_user
+MYSQL_MAIN_PASSWORD=write_user_password
+MYSQL_MAIN_DB=dcr_pool_main_db
+
+# pool_stats_db
+MYSQL_STATS_HOST=127.0.0.1
+MYSQL_STATS_PORT=3306
+MYSQL_STATS_USER=write_user
+MYSQL_STATS_PASSWORD=write_user_password
+MYSQL_STATS_DB=dcr_pool_stats_db
+
+# Zookeeper
+# ZOOKEEPER=192.168.0.1:2181,192.168.0.2:2181,192.168.0.3:2181
+ZOOKEEPER=127.0.0.1:2181
+
+# Kafka
+# KAFKA=192.168.0.1:9092,192.168.0.2:9092,192.168.0.3:9092
+KAFKA=127.0.0.1:9092
+
+PAYOUT_ADDRESS=TsWZ1EzypJfMwBKAEDYKuyHRGctqGAxMje2
+USER_LIST_API=http://172.16.249.106:13000/api/internal/get_user_id_list

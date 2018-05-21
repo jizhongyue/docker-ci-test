@@ -1,0 +1,49 @@
+#!/bin/bash
+#
+# Copyright @ poolin.com,blockin.com
+# Since @ 2018-05-03
+#
+# Pool Services
+#
+
+
+export LC_ALL=C
+SROOT=$(cd $(dirname "$0"); pwd)
+cd $SROOT
+
+bash /root/scripts/make_conf.sh > ${POOL_VOLUME}/pool.cfg
+bash /root/scripts/make_cron.sh > /etc/cron.d/poold
+
+# Fix cronrtab not load problem.
+touch /etc/cron.d/poold
+chmod 0644 /etc/cron.d/poold
+crontab /etc/cron.d/poold
+
+POOL_CONF=${POOL_VOLUME}/pool.cfg
+POOL_LOG_DIR=${POOL_VOLUME}/log_${EXEC_FILE}
+POOL_EXEC=/work/build/${EXEC_FILE}
+
+
+if [ ! -f "${POOL_EXEC}" ]; then
+    echo "[error] ${POOL_EXEC}: File not exists!" >> ${POOL_VOLUME}/run.log
+fi
+
+if [ ! -f "${POOL_CONF}" ]; then
+    echo "[error] ${POOL_CONF}: File not exists!" >> ${POOL_VOLUME}/run.log
+fi
+
+if [ "sharelogger" = "${EXEC_FILE}" ]; then
+    mkdir -p ${POOL_VOLUME}/share_binlog
+fi
+
+if [ "gbtmaker" = "${EXEC_FILE}" ]; then
+    touch ${POOL_VOLUME}/mainnet-block-notifications.txt
+fi
+
+mkdir -p ${POOL_LOG_DIR}
+echo "-------------------------------" >> ${POOL_VOLUME}/run.log
+echo "Starting ${EXEC_FILE}..." >> ${POOL_VOLUME}/run.log
+echo "Config: ${POOL_CONF}" >> ${POOL_VOLUME}/run.log
+echo "Log: ${POOL_LOG_DIR}" >> ${POOL_VOLUME}/run.log
+
+${POOL_EXEC} -c ${POOL_CONF} -l ${POOL_LOG_DIR}
