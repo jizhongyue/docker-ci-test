@@ -124,13 +124,13 @@ WORKDIR /root/
 
 # Copy 'dcrpool'
 RUN mkdir -p /work/build
-COPY --from=pool-builder --chown=root:root /root/source/dcrpool/build/  /work/build/
+COPY --from=pool-builder /root/source/dcrpool/build/  /work/build/
 
 # Copy '/usr/local/include' && '/usr/local/lib'
-COPY --from=pool-builder --chown=root:root /usr/lib/ /usr/lib/
-COPY --from=pool-builder --chown=root:root /usr/local/lib/ /usr/local/lib/
-COPY --from=pool-builder --chown=root:root /usr/include/ /usr/include/
-COPY --from=pool-builder --chown=root:root /usr/local/include/ /usr/local/include/
+COPY --from=pool-builder /usr/lib/ /usr/lib/
+COPY --from=pool-builder /usr/local/lib/ /usr/local/lib/
+COPY --from=pool-builder /usr/include/ /usr/include/
+COPY --from=pool-builder /usr/local/include/ /usr/local/include/
 
 # Scripts
 ADD make_conf.sh   /root/scripts/make_conf.sh
